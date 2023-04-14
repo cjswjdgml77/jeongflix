@@ -29,8 +29,7 @@ const HomeNetflix = ({ data }: Props) => {
     }
   };
   return (
-    <div className="flex flex-col justify-center items-center w-full h-[100vh] overflow-hidden">
-      <Image src={logo} alt="logo.png" width={100} height={50} className="" />
+    <div className="flex flex-col justify-center items-center w-full h-[100vh] overflow-hidden absolute top-0 left-0">
       <div
         className="flex justify-center items-center snap-div"
         onMouseDown={mouseDownHandler}
