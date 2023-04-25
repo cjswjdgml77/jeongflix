@@ -18,5 +18,10 @@ export const authOptions = {
   pages: {
     signIn: "/auth/signin",
   },
+  callbacks: {
+    async redirect({ url, baseUrl }: { url: string; baseUrl: string }) {
+      return url || baseUrl;
+    },
+  },
 };
 export default NextAuth(authOptions);

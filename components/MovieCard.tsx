@@ -2,10 +2,10 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import YouTube from "react-youtube";
 import React, { CSSProperties, useRef, useState } from "react";
-import { PopularMovies } from "@/hooks/usePopularMovies";
+import { PopularMovie } from "@/hooks/usePopularMovies";
 import useMovieClips, { MovieClips } from "@/hooks/useMovieClips";
 type Props = {
-  movie: PopularMovies;
+  movie: PopularMovie;
   rotateY: number;
 };
 
@@ -16,6 +16,7 @@ const MovieCard = ({ movie, rotateY }: Props) => {
   const imageClickHandler = async (movieId: number) => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const data: MovieClips[] = await useMovieClips(movieId);
+
     const mouseLeaveHander = () => {
       setShowVideo("");
       ref.current?.removeEventListener("mouseleave", mouseLeaveHander);
@@ -50,8 +51,9 @@ const MovieCard = ({ movie, rotateY }: Props) => {
             showVideo && "opacity-0"
           }`}
           alt={movie.title}
-          width={800}
-          height={850}
+          width={300}
+          height={350}
+          priority
         />
         <YouTube
           videoId={showVideo}

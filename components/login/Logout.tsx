@@ -7,7 +7,7 @@ const Logout = (props: Props) => {
     <>
       <button
         onClick={() => {
-          signOut();
+          signOut({ callbackUrl: "/" });
         }}
       >
         Logout

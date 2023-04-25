@@ -30,8 +30,11 @@ body {
     )
     rgb(var(--background-start-rgb));
   }
-img{
- 
+.hidden-scrollbar{
+
+}
+.hidden-scrollbar::-webkit-scrollbar{
+  display: none;
 }
 .snap-div{
   position:relative;
@@ -139,4 +142,40 @@ img{
 }
 .snap-ul li:nth-child(20){
   transform: rotateY(342deg) translateZ(var(--translate-z)) ; 
+}
+
+body{
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+   -khtml-user-select: none; /* Konqueror HTML */
+     -moz-user-select: none; /* Old versions of Firefox */
+      -ms-user-select: none; /* Internet Explorer/Edge */
+          user-select: none; /* Non-prefixed version, currently
+                                supported by Chrome, Edge, Opera and Firefox */
+
+}
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+.scrollable-element {
+
+  overflow: overlay;
+
+}
+.animating{
+  animation: moving 0.5s ease-in-out both;
+}
+@keyframes moving {
+  0%{
+    transform:translateX(var(--start-move));
+  }
+  100%{
+     transform: translateX(var(--end-move));
+   }
 }

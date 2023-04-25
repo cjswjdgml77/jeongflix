@@ -5,7 +5,6 @@ export interface FetchResponse<T> {
 const useData = async (url: string) => {
   try {
     const { data } = await axios.get(url);
-
     return data.results;
   } catch (e) {
     return e;

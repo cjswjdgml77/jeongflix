@@ -1,10 +1,10 @@
 import React, { CSSProperties, useRef, useState } from "react";
-import { PopularMovies } from "@/hooks/usePopularMovies";
+import { PopularMovie } from "@/hooks/usePopularMovies";
 import MovieCard from "./MovieCard";
 import Image from "next/image";
 import logo from "../public/logo.png";
 type Props = {
-  data: PopularMovies[];
+  data: PopularMovie[];
 };
 
 const HomeNetflix = ({ data }: Props) => {
@@ -19,13 +19,11 @@ const HomeNetflix = ({ data }: Props) => {
     const differ = 50;
     const rotate = Number(ref.current.style.getPropertyValue("--rotate"));
     if (movement > 0 && movement > differ) {
-      console.log("right move");
       ref.current.style.transform = `rotateY(${rotate + 18}deg)`;
       ref.current.style.setProperty("--rotate", (rotate + 18).toString());
     } else if (movement < 0 && movement < differ * -1) {
       ref.current.style.transform = `rotateY(${rotate - 18}deg)`;
       ref.current.style.setProperty("--rotate", (rotate - 18).toString());
-      console.log("left move");
     }
   };
   return (

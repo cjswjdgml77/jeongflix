@@ -1,5 +1,5 @@
 import HomeNetflix from "@/components/HomeNetflix";
-import usePopularMovies, { PopularMovies } from "@/hooks/usePopularMovies";
+import usePopularMovies, { PopularMovie } from "@/hooks/usePopularMovies";
 import type { GetServerSideProps } from "next";
 
 export const getServerSideProps: GetServerSideProps = async () => {
@@ -10,7 +10,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
 };
 
 type Props = {
-  data: PopularMovies[];
+  data: PopularMovie[];
 };
 export default function Home({ data }: Props) {
   return <HomeNetflix data={data} />;

@@ -8,7 +8,7 @@ type Props = {};
 const Navbar = (props: Props) => {
   const { data: session, status } = useSession();
   return (
-    <div className="flex sticky justify-between sm:px-[var(--padding-l)] px-[var(--padding-s)] py-[var(--padding-m)] z-10">
+    <div className="flex fixed w-full top-0 justify-between sm:px-[var(--padding-l)] px-[var(--padding-s)] py-[var(--padding-s)] z-10">
       <Image src={logo} alt="my-logo.png" width={100} />
       <nav></nav>
       {status !== "loading" ? session ? <Logout /> : <Login /> : ""}
