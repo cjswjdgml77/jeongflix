@@ -1,13 +1,7 @@
-import React, { CSSProperties, useRef } from "react";
+import { CSSProperties, useRef } from "react";
 import { SlArrowLeft, SlArrowRight } from "react-icons/sl";
 import VideoCard from "./VideoCard";
 import { ModalData } from "@/pages/main";
-
-// type Props = {
-//   data: T[];
-//   openModal: (data: ModalData | null) => void;
-// };
-
 const SlideView = <T,>({
   data,
   openModal,
@@ -80,7 +74,6 @@ const SlideView = <T,>({
     div.style.setProperty("--end-move", `${endMove}%`);
 
     div.classList.add("animating");
-    console.log(startMove);
     setTimeout(() => {
       const childs = div.childNodes;
       for (let i = 0; i < showSlide; i++) {

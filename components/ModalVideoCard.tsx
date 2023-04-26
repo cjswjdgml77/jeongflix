@@ -7,10 +7,10 @@ type Props = {
 };
 
 const ModalVideoCard = ({ clips }: Props) => {
-  const clipsEdited = clips.slice(0, 5);
+  const clipsEdited = clips.slice(0, 3);
   const opts = {
-    width: 300,
-    height: 200,
+    width: 600,
+    height: 300,
   };
   return (
     <div className="flex flex-col gap-10">
@@ -18,7 +18,8 @@ const ModalVideoCard = ({ clips }: Props) => {
         <YouTube
           key={clip.id}
           videoId={clip.key}
-          className="w-full"
+          iframeClassName="max-w-[600px] w-[100%] "
+          className="flex justify-center w-full text-center"
           opts={opts}
         ></YouTube>
       ))}

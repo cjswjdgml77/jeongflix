@@ -7,7 +7,8 @@ import axios from "axios";
 import { MovieClips } from "@/hooks/useMovieClips";
 import GenreComp, { Genre } from "./GenreComp";
 import ModalVideoCard from "./ModalVideoCard";
-
+import Recommendations from "./Recommendations";
+import { AiOutlineCloseCircle } from "react-icons/ai";
 type Props = {
   data: any;
   openModal: (data: ModalData | null) => void;
@@ -21,9 +22,10 @@ interface Details {
   genres: Genre[];
   overview: string;
 }
-interface SimilarMovies {
+export interface SimilarMovies {
   id: number;
   backdrop_path: string;
+  poster_path: string;
   title: string;
 }
 interface TotalDatas {
@@ -58,10 +60,7 @@ const VideoModal = ({ data, openModal }: Props) => {
           { data: recommendations },
           { data: similars },
         ]) => {
-          console.log(movie);
-          setTimeout(() => {
-            setContent({ detail, videos: movie, recommendations, similars });
-          }, 50);
+          setContent({ detail, videos: movie, recommendations, similars });
         }
       );
     }
@@ -71,19 +70,26 @@ const VideoModal = ({ data, openModal }: Props) => {
     <></>
   ) : (
     <div
-      className="fixed w-[100%] h-[100vh] top-0 left-0 right-0 bottom-0 bg-black/50 cursor-pointer overflow-x-hidden noselect"
+      className="fixed w-[100%] h-[100vh] top-0 left-0 right-0 bottom-0 bg-black/50 cursor-pointer overflow-x-hidden z-20"
       onClick={(e) => {
         openModal(null);
       }}
     >
       <motion.div
         layoutId={`modal-${data.id}`}
-        className="z-[10] w-full max-w-[800px] h-[100vh] mx-auto bg-gray-900 cursor-default rounded-t-md top-0 overflow-y-scroll  hidden-scrollbar"
+        className="z-[10] w-full max-w-[800px]  h-[60vh] sm:h-[100vh] mx-auto bg-gray-900 rounded-t-md top-0 overflow-y-scroll  hidden-scrollbar relative cursor-default"
         transition={{ duration: 0.5 }}
         onClick={(e) => {
           e.stopPropagation();
         }}
       >
+        <AiOutlineCloseCircle
+          className="absolute top-5 right-5 text-gray-300 text-4xl cursor-pointer"
+          onClick={() => {
+            console.log("clicked");
+            openModal(null);
+          }}
+        />
         <Image
           src={`https://image.tmdb.org/t/p/original${data.backdrop_path}`}
           width={600}
@@ -100,12 +106,20 @@ const VideoModal = ({ data, openModal }: Props) => {
             <p className="text-gray-400">{content.detail.overview}</p>
           )}
         </div>
-        <div>
-          <p>Recommendations</p>
-        </div>
+
         <div className="z-[10] w-full max-w-[800px] mx-auto bg-gray-900 cursor-default flex flex-col px-[var(--padding-m)]">
-          <p className="text-2xl">Clips</p>
-          {content && <ModalVideoCard clips={content.videos.results} />}
+          <div className="pb-4 sm:pb-8">
+            <p className="text-2xl pb-4 sm:pb-8">Clips</p>
+            {content && <ModalVideoCard clips={content.videos.results} />}
+          </div>
+          <div className="pb-4 sm:pb-8">
+            <p className="text-2xl pb-4 sm:pb-8">Recommendations</p>
+            {content && (
+              <Recommendations
+                recommendations={content.recommendations.results}
+              />
+            )}
+          </div>
         </div>
       </motion.div>
     </div>

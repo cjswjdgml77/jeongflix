@@ -25,8 +25,8 @@ const MovieCard = ({ movie, rotateY }: Props) => {
     setShowVideo(data[Math.floor(Math.random() * data.length)].key);
   };
   const opts = {
-    height: "350",
-    width: "300",
+    height: "250",
+    width: "200",
     playerVars: {
       autoplay: 1,
     },
@@ -46,19 +46,22 @@ const MovieCard = ({ movie, rotateY }: Props) => {
         ref={ref}
       >
         <Image
-          src={"https://image.tmdb.org/t/p/original" + movie.backdrop_path}
+          src={"https://image.tmdb.org/t/p/original" + movie.poster_path}
           className={`min-w-[100%] min-h-[100%] opacity-1 object-fill ${
             showVideo && "opacity-0"
           }`}
           alt={movie.title}
-          width={300}
-          height={350}
+          width={200}
+          height={250}
           priority
         />
         <YouTube
           videoId={showVideo}
           opts={opts}
-          className={`absolute top-0 z-[-1] left-0 ${showVideo && "z-[10]"}`}
+          className={`absolute top-0 z-[-1] left-0 flex items-center h-full bg-black ${
+            showVideo && "z-[10]"
+          }`}
+          iframeClassName="w-[250px]"
         />
       </motion.li>
     </>

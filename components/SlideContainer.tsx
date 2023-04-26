@@ -1,7 +1,5 @@
 import { useClientData } from "@/hooks/useClientData";
-import Image from "next/image";
-import React, { CSSProperties, useEffect, useRef, useState } from "react";
-import type { PopularMovie } from "@/hooks/usePopularMovies";
+import React from "react";
 import type { ModalData } from "@/pages/main";
 import { AxiosError } from "axios";
 import SlideView from "./SlideView";
@@ -16,6 +14,7 @@ export interface BasicDatas {
   backdrop_path: string;
   poster_path: string;
   name: string;
+  unique?: string;
 }
 
 const SlideContainer = <T,>({
@@ -35,7 +34,7 @@ const SlideContainer = <T,>({
 
   return (
     <div className="flex flex-col">
-      <h3 className="text-2xl px-[var(--padding-s)] sm:px-[var(--padding-l)] py-4">
+      <h3 className="text-2xl px-[var(--padding-s)] sm:px-[var(--padding-l)] py-5 md:py-7 lg:py-9">
         {title}
       </h3>
       {data && (
