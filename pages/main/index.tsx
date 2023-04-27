@@ -6,13 +6,13 @@ import Header from "@/components/Header";
 import { movieRequest } from "@/lib/request";
 import SlideContainer from "@/components/SlideContainer";
 import VideoModal from "@/components/VideoModal";
-import { getSession, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]";
+import { useMyList } from "@/hooks/useMyList";
+import MyListContainer from "@/components/MyListContainer";
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-  // const session = await getSession({ req });
-
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const data = await useTrendingMovies();
   return {
@@ -31,6 +31,8 @@ export interface ModalData {
 }
 const Home = ({ data }: Props) => {
   const [initial, setInitial] = useState(false);
+  const { data: myList, error, isLoading, mutate } = useMyList("api/mylist");
+
   const [movie, setMovie] = useState<TrendingMovie>();
   const [modal, setModal] = useState<ModalData | null>(null);
   const { data: session } = useSession();
@@ -39,7 +41,7 @@ const Home = ({ data }: Props) => {
     setMovie(randomMovie);
     setInitial(true);
   }, []);
-
+  mutate();
   if (!session) return <p>Access Denied</p>;
   return (
     <div className="">
@@ -55,7 +57,8 @@ const Home = ({ data }: Props) => {
           dataUrl={movieRequest.getMoviesWithTopRates}
           openModal={setModal}
         />
-        <VideoModal data={modal} openModal={setModal} />
+        {myList && <MyListContainer data={myList} openModal={setModal} />}
+        {modal && <VideoModal data={modal} openModal={setModal} />}
         {/* <VideoModal id={modal} openModal={setModal} /> */}
       </main>
     </div>

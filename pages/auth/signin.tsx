@@ -13,7 +13,6 @@ export default function SignIn({
   providers,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const iconMap = (name: string): ReactElement => {
-    console.log(name);
     const icons: { [key: string]: ReactElement } = {
       GitHub: <FaGithub />,
       Google: <FcGoogle />,

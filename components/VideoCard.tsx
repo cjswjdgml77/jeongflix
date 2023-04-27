@@ -16,7 +16,7 @@ const VideoCard = ({ data, openModal }: Props) => {
         animate={{ opacity: 1 }}
         className="min-w-[28.66%] md:min-w-[21.25%] lg:min-w-[16.8%] rounded-md"
         layout
-        layoutId={`modal-${data.id}`}
+        layoutId={`modal-${data.key || data.id}`}
         transition={{ duration: 0.3 }}
         whileHover={{ scale: 1.1 }}
         onClick={() => {

@@ -45,13 +45,14 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-  accounts      Account[]
-  sessions      Session[]
+  id               String           @id @default(cuid())
+  name             String?
+  email            String?          @unique
+  emailVerified    DateTime?
+  image            String?
+  accounts         Account[]
+  sessions         Session[]
+  farvoriteeMovies FavoriteMovies[]
 }
 
 model VerificationToken {
@@ -60,4 +61,17 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model FavoriteMovies {
+  id            String @id @default(cuid())
+  content_id    Int
+  key           String
+  title         String
+  backdrop_path String @map("backdrop_path")
+  poster_path   String @map("poster_path")
+  user          User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId        String
+
+  @@unique([key, title])
 }

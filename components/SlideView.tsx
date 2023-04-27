@@ -86,7 +86,13 @@ const SlideView = <T,>({
   };
   return (
     <div className="flex relative">
-      <div className="flex w-full h-full absolute top-0 left-0 justify-between">
+      <div
+        className={`flex w-full h-full absolute top-0 left-0 justify-between ${
+          data.length < 6 && "lg:invisible"
+        } ${data.length < 5 && "md:invisible"} ${
+          data.length < 4 && "invisible"
+        }`}
+      >
         <button
           className={`min-w-[5%] bg-black/50 z-20`}
           onClick={(e) => {

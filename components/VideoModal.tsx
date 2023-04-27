@@ -9,6 +9,9 @@ import GenreComp, { Genre } from "./GenreComp";
 import ModalVideoCard from "./ModalVideoCard";
 import Recommendations from "./Recommendations";
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import { CiSquarePlus } from "react-icons/ci";
+import { BsCheck2Circle } from "react-icons/bs";
+import { useMyList } from "@/hooks/useMyList";
 type Props = {
   data: any;
   openModal: (data: ModalData | null) => void;
@@ -42,16 +45,21 @@ interface TotalDatas {
   };
 }
 const VideoModal = ({ data, openModal }: Props) => {
+  const {
+    data: mylist,
+    error,
+    isLoading,
+    mutate,
+  } = useMyList(`/api/mylist/${data.content_id || data.id}`);
   const [content, setContent] = useState<TotalDatas>();
-
   useEffect(() => {
     async function getData() {
       if (!data) return;
       const url = [
-        movieRequest.getMovieWithVideo(data.id),
-        movieRequest.getMovieDetails(data.id),
-        movieRequest.getMoviesWithRecommendations(data.id),
-        movieRequest.getMoviesWithSimilar(data.id),
+        movieRequest.getMovieWithVideo(data.content_id || data.id),
+        movieRequest.getMovieDetails(data.content_id || data.id),
+        movieRequest.getMoviesWithRecommendations(data.content_id || data.id),
+        movieRequest.getMoviesWithSimilar(data.content_id || data.id),
       ];
       Promise.all(url.map((requestUrl) => axios.get(requestUrl))).then(
         ([
@@ -66,6 +74,15 @@ const VideoModal = ({ data, openModal }: Props) => {
     }
     getData();
   }, [data]);
+  const addListHandler = async (data: SimilarMovies) => {
+    try {
+      const response = await fetch("/api/mylist", {
+        method: "POST",
+        body: JSON.stringify({ data }),
+      });
+      mutate();
+    } catch (e) {}
+  };
   return data === null ? (
     <></>
   ) : (
@@ -76,7 +93,7 @@ const VideoModal = ({ data, openModal }: Props) => {
       }}
     >
       <motion.div
-        layoutId={`modal-${data.id}`}
+        layoutId={`modal-${data.key || data.id}`}
         className="z-[10] w-full max-w-[800px]  h-[60vh] sm:h-[100vh] mx-auto bg-gray-900 rounded-t-md top-0 overflow-y-scroll  hidden-scrollbar relative cursor-default"
         transition={{ duration: 0.5 }}
         onClick={(e) => {
@@ -98,6 +115,21 @@ const VideoModal = ({ data, openModal }: Props) => {
           className="w-full rounded-t-md"
         />
         <div className="flex flex-col px-[var(--padding-m)] py-[var(--padding-l)]">
+          <div className="w-full text-right">
+            {mylist && mylist.mylist.length > 0 ? (
+              <BsCheck2Circle className="inline-block text-4xl mr-2" />
+            ) : (
+              <button
+                className="w-auto bg-slate-300/20 px-4 py-2 rounded-md"
+                onClick={() => {
+                  addListHandler(data);
+                }}
+              >
+                <CiSquarePlus className="inline-block text-4xl mr-2" />
+                <span>Add MyList</span>
+              </button>
+            )}
+          </div>
           <div className="flex justify-between items-center flex-col md:flex-row">
             <p className="text-4xl pb-4">{content?.detail.title}</p>
             {content && <GenreComp genres={content.detail.genres} />}
