@@ -1,4 +1,3 @@
-import React from "react";
 import type { ModalData } from "@/pages/main";
 import SlideView from "./SlideView";
 import { useMovieLists } from "@/hooks/useMovieLists";

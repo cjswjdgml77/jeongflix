@@ -1,6 +1,4 @@
-import React from "react";
 import Link from "next/link";
-import axios from "axios";
 import { signIn, signOut, useSession } from "next-auth/react";
 type Props = {};
 

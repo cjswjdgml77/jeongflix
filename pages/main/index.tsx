@@ -5,7 +5,7 @@ import { TrendingMovie } from "@/hooks/useTrendingMovies";
 import Header from "@/components/Header";
 import { movieRequest } from "@/lib/request";
 import SlideContainer from "@/components/SlideContainer";
-import VideoModal from "@/components/VideoModal";
+import VideoModal from "@/components/modal/VideoModal";
 import { useSession } from "next-auth/react";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]";

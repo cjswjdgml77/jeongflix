@@ -2,7 +2,6 @@ import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import { authOptions } from "./auth/[...nextauth]";
-import { SimilarMovies } from "@/components/VideoModal";
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -24,7 +23,7 @@ export default async function handler(
       const charactersLength = characters.length;
       const {
         data: { id, backdrop_path, poster_path, title },
-      } = JSON.parse(req.body);
+      } = req.body;
       const user = await prisma.user.update({
         where: {
           email: session.user?.email || "",

@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import YouTube from "react-youtube";
-import React, { CSSProperties, useRef, useState } from "react";
+import { CSSProperties, useRef, useState } from "react";
 import { PopularMovie } from "@/hooks/usePopularMovies";
 import useMovieClips, { MovieClips } from "@/hooks/useMovieClips";
 type Props = {

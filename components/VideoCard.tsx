@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import type { ModalData } from "@/pages/main";
 import Image from "next/image";
-import React from "react";
 
 type Props = {
   data: any;

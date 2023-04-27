@@ -1,6 +1,5 @@
 import type { MovieClips } from "@/hooks/useMovieClips";
 import YouTube from "react-youtube";
-import React from "react";
 
 type Props = {
   clips: MovieClips[];

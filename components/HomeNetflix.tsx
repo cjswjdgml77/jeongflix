@@ -1,4 +1,4 @@
-import React, { CSSProperties, useRef, useState } from "react";
+import { CSSProperties, useRef, useState } from "react";
 import { PopularMovie } from "@/hooks/usePopularMovies";
 import MovieCard from "./MovieCard";
 import Image from "next/image";

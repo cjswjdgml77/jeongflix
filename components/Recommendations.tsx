@@ -1,10 +1,7 @@
-import React from "react";
-import { BasicDatas } from "./SlideContainer";
-import { SimilarMovies } from "./VideoModal";
 import Image from "next/image";
-
+import { BasicDatas } from "@/hooks/useMovieLists";
 type Props = {
-  recommendations: SimilarMovies[];
+  recommendations: BasicDatas[];
 };
 
 const Recommendations = ({ recommendations }: Props) => {

@@ -1,6 +1,5 @@
 import { MyList } from "@/hooks/useMyList";
 import { ModalData } from "@/pages/main";
-import React from "react";
 import SlideView from "./SlideView";
 
 type Props = {

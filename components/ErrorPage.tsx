@@ -1,5 +1,4 @@
 import type { AxiosError } from "axios";
-import React from "react";
 
 type Props = {
   error: AxiosError;
