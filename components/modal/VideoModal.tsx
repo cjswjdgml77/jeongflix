@@ -40,6 +40,7 @@ interface TotalDatas {
 }
 const VideoModal = ({ data, openModal }: Props) => {
   const [content, setContent] = useState<TotalDatas>();
+  console.log(data);
   useEffect(() => {
     async function getData() {
       if (!data) return;

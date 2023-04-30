@@ -1,5 +1,5 @@
 import { useClientData } from "./useClientData";
-export interface MyList {
+export interface Favorites {
   id: string;
   key: string;
   title: string;
@@ -7,6 +7,6 @@ export interface MyList {
   backdropPath: string;
 }
 interface FecthApiData {
-  mylist: MyList[];
+  favorites: Favorites[];
 }
-export const useMyList = (url: string) => useClientData<FecthApiData>(url);
+export const useFavorites = (url: string) => useClientData<FecthApiData>(url);

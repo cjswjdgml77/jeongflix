@@ -9,7 +9,7 @@ import VideoModal from "@/components/modal/VideoModal";
 import { useSession } from "next-auth/react";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]";
-import { useMyList } from "@/hooks/useMyList";
+import { useFavorites } from "@/hooks/useFavorites";
 import MyListContainer from "@/components/MyListContainer";
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
@@ -31,8 +31,13 @@ export interface ModalData {
 }
 const Home = ({ data }: Props) => {
   const [initial, setInitial] = useState(false);
-  const { data: myList, error, isLoading, mutate } = useMyList("api/mylist");
-
+  const {
+    data: favorites,
+    error,
+    isLoading,
+    mutate,
+  } = useFavorites("api/favorites");
+  console.log(error);
   const [movie, setMovie] = useState<TrendingMovie>();
   const [modal, setModal] = useState<ModalData | null>(null);
   const { data: session } = useSession();
@@ -57,7 +62,7 @@ const Home = ({ data }: Props) => {
           dataUrl={movieRequest.getMoviesWithTopRates}
           openModal={setModal}
         />
-        {myList && <MyListContainer data={myList} openModal={setModal} />}
+        {favorites && <MyListContainer data={favorites} openModal={setModal} />}
         {modal && <VideoModal data={modal} openModal={setModal} />}
         {/* <VideoModal id={modal} openModal={setModal} /> */}
       </main>
