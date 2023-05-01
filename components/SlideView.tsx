@@ -142,7 +142,7 @@ const SlideView = <T,>({
         ref={ref}
       >
         {data.map((video: any, idx: number) => (
-          <VideoCard key={idx} data={video} openModal={openModal} />
+          <VideoCard key={video.id} data={video} openModal={openModal} />
         ))}
       </div>
     </div>
