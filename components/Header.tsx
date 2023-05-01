@@ -12,7 +12,7 @@ const Header = ({ movie, openModal }: Props) => {
   return (
     <>
       <header
-        className="flex flex-col w-full md:h-[46vw] py-6 bg-cover top-0 px-[var(--padding-s)] sm:px-[var(--padding-l)] justify-around bg-no-repeat"
+        className="flex flex-col w-full md:h-[46vw] py-6 pt-[4rem] bg-cover top-0 px-[var(--padding-s)] sm:px-[var(--padding-l)] justify-around bg-no-repeat"
         style={{
           backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`,
         }}
