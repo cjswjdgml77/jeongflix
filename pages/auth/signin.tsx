@@ -31,11 +31,7 @@ export default function SignIn({
             >
               {iconMap(provider.name)}
               <button
-                onClick={() =>
-                  signIn(provider.id, {
-                    callbackUrl: "https://google.com",
-                  })
-                }
+                onClick={() => signIn(provider.id, { callbackUrl: "/main" })}
               >
                 Sign in with {provider.name}
               </button>
