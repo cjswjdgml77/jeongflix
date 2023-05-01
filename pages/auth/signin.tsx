@@ -31,7 +31,12 @@ export default function SignIn({
             >
               {iconMap(provider.name)}
               <button
-                onClick={() => signIn(provider.id, { callbackUrl: "/main" })}
+                onClick={() =>
+                  signIn(provider.id, {
+                    callbackUrl:
+                      "https://jeongflix-qwguaptou-cjswjdgml77.vercel.app/main",
+                  })
+                }
               >
                 Sign in with {provider.name}
               </button>
