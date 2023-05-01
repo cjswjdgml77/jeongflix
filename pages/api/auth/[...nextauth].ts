@@ -23,6 +23,6 @@ export const authOptions = {
       return url || baseUrl;
     },
   },
-  secrect: process.env.NEXTAUTH_SECRET,
+  secret: process.env.NEXTAUTH_SECRET,
 };
 export default NextAuth(authOptions);
