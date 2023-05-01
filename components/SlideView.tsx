@@ -115,10 +115,22 @@ const SlideView = <T,>({
       </div>
 
       <div
-        className={`flex w-full overflow-x-visible gap-[1%] translate-x-[var(--translate-sm)] md:translate-x-[var(--translate-md)] lg:translate-x-[var(--translate-lg)] 
-          ${data.length < 6 && "lg:translate-x-[5%]"}
-          ${data.length < 5 && "md:translate-x-[5%]"}
-          ${data.length < 4 && "translate-x-[5%]"}
+        className={`flex w-full overflow-x-visible gap-[1%]  
+          ${
+            data.length < 6
+              ? "lg:translate-x-[5%]"
+              : "lg:translate-x-[var(--translate-lg)]"
+          }
+          ${
+            data.length < 5
+              ? "md:translate-x-[5%]"
+              : "md:translate-x-[var(--translate-md)]"
+          }
+          ${
+            data.length < 4
+              ? "translate-x-[5%]"
+              : " translate-x-[var(--translate-sm)]"
+          }
         `}
         style={
           {
