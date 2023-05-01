@@ -4,7 +4,7 @@ import { RiCheckboxCircleLine } from "react-icons/ri";
 import { CiSquarePlus } from "react-icons/ci";
 import axios from "axios";
 import { motion } from "framer-motion";
-import { useRef } from "react";
+import { useState } from "react";
 
 type Props = {
   data: any;
@@ -17,25 +17,24 @@ const FavoriteButton = ({ data }: Props) => {
     isLoading,
     mutate,
   } = useFavorites(`/api/favorites/${data.content_id || data.id}`);
-  const ref = useRef<HTMLButtonElement>(null);
+  const [disable, setDisable] = useState(false);
   const addListHandler = async (data: BasicDatas) => {
-    if (!ref.current) return;
-    ref.current.disabled = true;
     try {
+      setDisable(true);
       if (favorites && favorites.favorites.length > 0) {
-        await axios.delete(`/api/favorites/${favorites.favorites[0].id}`);
-        // await fetch(`/api/favorites/${data.id}`, { method: "DELETE" });
+        const result = await axios.delete(
+          `/api/favorites/${favorites.favorites[0].id}`
+        );
       } else {
-        await axios.post("/api/favorites", { data: data });
+        const result = await axios.post("/api/favorites", { data: data });
       }
     } catch (e) {
       console.log("error", e);
     } finally {
-      ref.current.disabled = false;
+      setDisable(false);
     }
     mutate();
   };
-  console.log(!favorites);
   if (isLoading) return null;
   return (
     <div className="w-full text-right">
@@ -44,7 +43,7 @@ const FavoriteButton = ({ data }: Props) => {
         onClick={() => {
           addListHandler(data);
         }}
-        ref={ref}
+        disabled={disable}
       >
         {favorites && favorites.favorites.length > 0 ? (
           <svg
