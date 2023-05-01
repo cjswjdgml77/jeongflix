@@ -25,9 +25,10 @@ type Props = {
 
 export interface ModalData {
   id: number;
-  backdrop_path: number;
+  backdrop_path: string;
   title?: string;
   name?: string;
+  key?: string;
 }
 const Home = ({ data }: Props) => {
   const [initial, setInitial] = useState(false);
@@ -51,7 +52,7 @@ const Home = ({ data }: Props) => {
   return (
     <div className="">
       <main className="overflow-hidden pb-11 flex flex-col gap-10">
-        {initial && movie && <Header movie={movie} />}
+        {initial && movie && <Header movie={movie} openModal={setModal} />}
         <SlideContainer
           title="You may also like"
           dataUrl={movieRequest.getMoviesWithPopular}
@@ -64,7 +65,6 @@ const Home = ({ data }: Props) => {
         />
         {favorites && <MyListContainer data={favorites} openModal={setModal} />}
         {modal && <VideoModal data={modal} openModal={setModal} />}
-        {/* <VideoModal id={modal} openModal={setModal} /> */}
       </main>
     </div>
   );

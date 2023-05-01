@@ -2,11 +2,13 @@ import { motion } from "framer-motion";
 import { RxInfoCircled } from "react-icons/rx";
 import { AiFillStar } from "react-icons/ai";
 import { TrendingMovie } from "@/hooks/useTrendingMovies";
+import type { ModalData } from "@/pages/main";
 type Props = {
   movie: TrendingMovie;
+  openModal: (data: ModalData) => void;
 };
 
-const Header = ({ movie }: Props) => {
+const Header = ({ movie, openModal }: Props) => {
   return (
     <>
       <header
@@ -36,7 +38,10 @@ const Header = ({ movie }: Props) => {
             </motion.p>
           </motion.div>
           <div className="flex items-center gap-5">
-            <motion.button className="flex items-center 2xl sm:text-3xl gap-2 bg-slate-500 bg-opacity-40 p-3 rounded-md">
+            <motion.button
+              className="flex items-center 2xl sm:text-3xl gap-2 bg-slate-500 bg-opacity-40 p-3 rounded-md"
+              onClick={() => openModal({ ...movie, key: "null" })}
+            >
               <RxInfoCircled />
               Info
             </motion.button>

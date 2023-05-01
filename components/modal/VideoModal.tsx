@@ -68,7 +68,7 @@ const VideoModal = ({ data, openModal }: Props) => {
     <></>
   ) : (
     <div
-      className="fixed w-[100%] h-[100vh] top-0 left-0 right-0 bottom-0 bg-black/50 cursor-pointer overflow-x-hidden z-20"
+      className="fixed flex items-center w-[100%] h-[100vh] top-0 left-0 right-0 bottom-0 bg-black/50 cursor-pointer overflow-x-hidden z-20"
       onClick={(e) => {
         openModal(null);
       }}

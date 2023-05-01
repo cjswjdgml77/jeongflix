@@ -1,4 +1,4 @@
-import { CSSProperties, useRef } from "react";
+import { CSSProperties, useEffect, useRef } from "react";
 import { SlArrowLeft, SlArrowRight } from "react-icons/sl";
 import VideoCard from "./VideoCard";
 import { ModalData } from "@/pages/main";
@@ -10,20 +10,20 @@ const SlideView = <T,>({
   openModal: (data: ModalData | null) => void;
 }) => {
   const ref = useRef<HTMLDivElement>(null);
+  const leftRef = useRef<HTMLButtonElement>(null);
+  const rightRef = useRef<HTMLButtonElement>(null);
 
-  const leftHandler = () => {
-    if (!ref.current) return;
-    const div = ref.current;
-    const sm = 3;
-    const md = 4;
-    const lg = 5;
+  const slideMove = (isRight: boolean) => {
+    let sm = 3;
+    let md = 4;
+    let lg = 5;
     const width = window.innerWidth;
     let startMove: number = 0;
     let endMove: number = 0;
+    let swap: number = 0;
     let showSlide = 0;
-
     if (width > 1024) {
-      startMove = 16.8 * 5 * -1 - 16.8;
+      startMove = 16.8 * lg * -1 - 16.8;
       endMove = -11.8;
       showSlide = lg;
     } else if (width > 768) {
@@ -35,6 +35,19 @@ const SlideView = <T,>({
       endMove = -23.66;
       showSlide = sm;
     }
+    if (isRight) {
+      swap = endMove;
+      endMove = startMove;
+      startMove = swap;
+    }
+    return { startMove, endMove, showSlide };
+  };
+  const leftHandler = () => {
+    if (!ref.current || !leftRef.current || !rightRef.current) return;
+    leftRef.current.disabled = true;
+    rightRef.current.disabled = true;
+    const div = ref.current;
+    const { startMove, endMove, showSlide } = slideMove(false);
     const childs = div.childNodes;
     for (let i = 0; i < showSlide; i++) {
       div.insertBefore(childs[childs.length - 1], childs[0]);
@@ -44,32 +57,17 @@ const SlideView = <T,>({
     div.classList.add("animating");
     setTimeout(() => {
       div.classList.remove("animating");
+      leftRef.current!.disabled = false;
+      rightRef.current!.disabled = false;
     }, 500);
   };
-  const rightHandler = (isRight: boolean) => {
-    if (!ref.current) return;
+  const rightHandler = () => {
+    if (!ref.current || !leftRef.current || !rightRef.current) return;
+    leftRef.current.disabled = true;
+    rightRef.current.disabled = true;
     const div = ref.current;
-    const sm = 3;
-    const md = 4;
-    const lg = 5;
-    const width = window.innerWidth;
-    const plus = isRight ? -1 : 1;
-    let startMove: number = 0;
-    let endMove: number = 0;
-    let showSlide = 0;
-    if (width > 1024) {
-      endMove = 16.8 * lg * plus + 16.8 * plus;
-      startMove = -11.8;
-      showSlide = lg;
-    } else if (width > 768) {
-      endMove = 21.25 * md * plus + 21.25 * plus;
-      startMove = -16.25;
-      showSlide = md;
-    } else {
-      endMove = 28.66 * sm * plus + 28.66 * plus;
-      startMove = -23.66;
-      showSlide = sm;
-    }
+    const { startMove, endMove, showSlide } = slideMove(true);
+
     div.style.setProperty("--start-move", `${startMove}%`);
     div.style.setProperty("--end-move", `${endMove}%`);
 
@@ -82,6 +80,8 @@ const SlideView = <T,>({
     }, 500);
     setTimeout(() => {
       div.classList.remove("animating");
+      leftRef.current!.disabled = false;
+      rightRef.current!.disabled = false;
     }, 500);
   };
   return (
@@ -94,27 +94,32 @@ const SlideView = <T,>({
         }`}
       >
         <button
-          className={`min-w-[5%] bg-black/50 z-20`}
-          onClick={(e) => {
+          className={`min-w-[5%] bg-black/70 z-20`}
+          onClick={() => {
             leftHandler();
+            // slideMove(false);
           }}
+          ref={leftRef}
         >
           <SlArrowLeft className={`text-lg sm:text-2xl`} />
         </button>
         <button
-          className={`min-w-[5%] bg-black/50 z-20`}
+          className={`min-w-[5%] bg-black/70 z-20 text-right`}
           onClick={() => {
-            rightHandler(true);
+            rightHandler();
           }}
+          ref={rightRef}
         >
-          <SlArrowRight className="text-lg sm:text-2xl" />
+          <SlArrowRight className="text-lg sm:text-2xl inline-block" />
         </button>
       </div>
 
       <div
-        className="flex overflow-x-visible gap-[1%] translate-x-[var(--translate-sm)] md:translate-x-[var(--translate-md)] lg:translate-x-[var(--translate-lg)] 
-    
-    "
+        className={`flex w-full overflow-x-visible gap-[1%] translate-x-[var(--translate-sm)] md:translate-x-[var(--translate-md)] lg:translate-x-[var(--translate-lg)] 
+          ${data.length < 6 && "lg:translate-x-[5%]"}
+          ${data.length < 5 && "md:translate-x-[5%]"}
+          ${data.length < 4 && "translate-x-[5%]"}
+        `}
         style={
           {
             "--translate-sm": "-23.66%",
