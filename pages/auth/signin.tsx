@@ -33,8 +33,7 @@ export default function SignIn({
               <button
                 onClick={() =>
                   signIn(provider.id, {
-                    callbackUrl:
-                      "https://jeongflix-qwguaptou-cjswjdgml77.vercel.app/main",
+                    callbackUrl: "https://google.com",
                   })
                 }
               >
