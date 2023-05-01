@@ -63,7 +63,9 @@ const Home = ({ data }: Props) => {
           dataUrl={movieRequest.getMoviesWithTopRates}
           openModal={setModal}
         />
-        {favorites && <MyListContainer data={favorites} openModal={setModal} />}
+        {favorites && favorites.favorites.length > 0 && (
+          <MyListContainer data={favorites} openModal={setModal} />
+        )}
         {modal && <VideoModal data={modal} openModal={setModal} />}
       </main>
     </div>
